@@ -7,6 +7,22 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+func indexHandler(c *fiber.Ctx) error {
+	return c.SendString("INDEX")
+}
+
+func postHandler(c *fiber.Ctx) error {
+	return c.SendString("POST")
+}
+
+func putHandler(c *fiber.Ctx) error {
+	return c.SendString("PUT")
+}
+
+func deleteHandler(c *fiber.Ctx) error {
+	return c.SendString("DELETE")
+}
+
 func main() {
 	// init app
 	app := fiber.New()
@@ -21,21 +37,6 @@ func main() {
 		port = "3000"
 	}
 
-	log.Fatalln(app.Listen(fmt.Spintf(":%v", port)))
+	log.Fatalln(app.Listen(fmt.Sprintf(":%v", port)))
 	
-	func indexHandler(c *fiber.Ctx) error {
-		return c.SendString("INDEX")
-	}
-
-	func postHandler(c *fiber.Ctx) error {
-		return c.SendString("POST")
-	}
-
-	func putHandler(c *fiber.Ctx) error {
-		return c.SendString("PUT")
-	}
-	
-	func deleteHandler(c *fiber.Ctx) error {
-		return c.SendString("DELETE")
-	}
 }
