@@ -6,6 +6,7 @@ import (
 	"os"
 	"github.com/gofiber/fiber/v2"
 	"database/sql"
+	"github.com/lib/pq"
 )
 
 func indexHandler(c *fiber.Ctx) error {
@@ -27,7 +28,7 @@ func deleteHandler(c *fiber.Ctx) error {
 func main() {
 
 	// set db
-	dbStr := "postgresql://<username>:<password>@<database_ip>/todos?sslmode=disable"
+	dbStr := "postgresql://casio:casio@localhost:5432/todos?sslmode=disable"
 	db, err := sql.Open("postgres", dbStr)
 	if err != nil {
 		log.Fatal(err)
@@ -35,10 +36,21 @@ func main() {
 	// init app
 	app := fiber.New()
 	// set handlers
-	app.Get("/", indexHandler)
-	app.Post("/", postHandler)
-	app.Put("/update", putHandler)
-	app.Delete("/delete", deleteHandler)
+	app.Get("/", func(c *fiber.Ctx) error {
+       		return indexHandler(c, db)
+   	})
+
+   	app.Post("/", func(c *fiber.Ctx) error {
+       		return postHandler(c, db)
+   	})
+
+   	app.Put("/update", func(c *fiber.Ctx) error {
+       		return putHandler(c, db)
+   	})
+
+  	app.Delete("/delete", func(c *fiber.Ctx) error {
+       		return deleteHandler(c, db)
+  	})
 	
 	port := os.Getenv("PORT")
 	if port == "" {
