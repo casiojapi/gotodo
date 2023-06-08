@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"github.com/gofiber/fiber/v2"
+	"database/sql"
 )
 
 func indexHandler(c *fiber.Ctx) error {
@@ -24,6 +25,13 @@ func deleteHandler(c *fiber.Ctx) error {
 }
 
 func main() {
+
+	// set db
+	dbStr := "postgresql://<username>:<password>@<database_ip>/todos?sslmode=disable"
+	db, err := sql.Open("postgres", dbStr)
+	if err != nil {
+		log.Fatal(err)
+	}
 	// init app
 	app := fiber.New()
 	// set handlers
