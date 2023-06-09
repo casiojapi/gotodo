@@ -9,20 +9,20 @@ import (
 	"github.com/lib/pq"
 )
 
-func indexHandler(c *fiber.Ctx) error {
-	return c.SendString("INDEX")
+func indexHandler(c *fiber.Ctx, db *sql.DB) error {
+   return c.SendString("Hello")
 }
 
-func postHandler(c *fiber.Ctx) error {
-	return c.SendString("POST")
+func postHandler(c *fiber.Ctx, db *sql.DB) error {
+   return c.SendString("Hello")
 }
 
-func putHandler(c *fiber.Ctx) error {
-	return c.SendString("PUT")
+func putHandler(c *fiber.Ctx, db *sql.DB) error {
+   return c.SendString("Hello")
 }
 
-func deleteHandler(c *fiber.Ctx) error {
-	return c.SendString("DELETE")
+func deleteHandler(c *fiber.Ctx, db *sql.DB) error {
+   return c.SendString("Hello")
 }
 
 func main() {
